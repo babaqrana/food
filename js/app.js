@@ -43,12 +43,54 @@ var iconUrl = 'https://img.icons8.com/external-smashingstocks-flat-smashing-stoc
 
 var foods = json["foods"];
 
-console.log( iconUrl );
-console.log( Object.keys(iconNames) );
+
+const weekdays = ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"];
+const months = ["Januar","Februar","Mart","April","Maj","Jun","Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+
+function GetDates(startDate, daysToAdd) {
+    var aryDates = [];
+
+    for(var i = 0; i <= daysToAdd; i++) {
+        var currentDate = new Date(),
+			month = currentDate.getMonth();
+			console.log( currentDate );
+        currentDate.setDate(startDate.getDate() + i);
+        aryDates.push(DayAsString(currentDate.getDay()) + ' ' + currentDate.getDate() + ' ' + months[month]);
+    }
+    
+    return aryDates;
+}
+
+
+function DayAsString(dayIndex) {
+    
+    
+    return weekdays[dayIndex];
+}
+
+var startDate = new Date();
+var aryDates = GetDates(startDate, 5);
+
+console.log( aryDates[0] );
+
+var cal = $("#mini-calender");
+
+var selDate = $("#selected-date");
+
+var sliced = aryDates[0].split(' ');
+selDate.append(sliced[0] + ', ' + sliced[1] + ' ' + sliced[2])
 
 
 
-var foodList = $("#food-list");
+
+for (let i = 0; i < aryDates.length; i++) {
+	var asdasd = aryDates[i].split(' '),
+		today = (i == 0)? " today": "";
+	cal.append('<div class="date'+today+'"><div class="date-wrap"><span class="week">'+asdasd[0].slice(0,3)+'</span><span class="day">'+asdasd[1]+'</span></div></div>');
+}
+
+
+var foodList = $(".food-list");
 
 for (let i = 0; i < Object.keys(foods).length; i++) {
 	var food = foods[i];
