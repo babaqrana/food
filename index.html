@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>Insidemaps Configurator</title>
+<link href="./css/main.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div id="container" class="hidden-menu">
+		<div class="lds-ring small"><div></div><div></div><div></div><div></div></div>
+		<div id="hamburger"><span></span><span></span><span></span></div>
+		<div id="menu-wrapper">
+			<div class="menu-wrapper-inner">
+				<h3 class="title">Configure <span>the room</span></h3>
+				<ul id="collection-type">
+					<li data-collection="countertops" class="collection-element"><img alt="countertops" src="images/icons/countertops.png"/></li>
+					<li data-collection="floors" class="collection-element"><img alt="floors" src="images/icons/floors.png"/></li>
+					<li data-collection="cupboards" class="collection-element"><img alt="cupboards" src="images/icons/cupboards.png"/></li>
+				</ul>
+				<div class="config-elements-wrapper">
+					<ul class="config-elements" data-collection="countertops">
+						<li class="config-element" data-mask="marble_classicCalcatta">
+							<div class="element-thumb">
+								<img alt="countertops" src="images/thumbs/marble_classicCalcatta.jpg"/>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Cosentino</span>
+								<span class="element-name">Silestone</span>
+								<span class="element-type">Classic Calcatta</span>
+							</div>
+						</li>
+						<li class="config-element" data-mask="marble_etherealHaze">
+							<div class="element-thumb">
+								<img alt="countertops" src="images/thumbs/marble_etherealHaze.jpg"/>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Cosentino</span>
+								<span class="element-name">Silestone</span>
+								<span class="element-type">Ethereal Haze</span>
+							</div>
+						</li>
+					</ul>
+					<ul class="config-elements" data-collection="floors">
+						<li class="config-element" data-mask="floor_oakSummit">
+							<div class="element-thumb">
+								<img alt="countertops" src="images/thumbs/floor_oakSummit.jpg"/>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Shaw Floors</span>
+								<span class="element-name">Exploration Oak</span>
+								<span class="element-type">Summit</span>
+							</div>
+						</li>
+						<li class="config-element" data-mask="floor_ocean">
+							<div class="element-thumb">
+								<img alt="countertops" src="images/thumbs/floor_ocean.jpg"/>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Shaw Floors</span>
+								<span class="element-name">Polaris Plus</span>
+								<span class="element-type">Oceanfront</span>
+							</div>
+						</li>
+					</ul>
+					<ul class="config-elements" data-collection="cupboards">
+						<li class="config-element" data-mask="cabs_onyx">
+							<div class="element-thumb">
+								<div class="simple_color" style="background-color: #393a3b;"></div>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Merillat Cabinets</span>
+								<span class="element-name">Onyx</span>
+							</div>
+						</li>
+						<li class="config-element" data-mask="cabs_white">
+							<div class="element-thumb">
+								<div class="simple_color" style="background-color: #f5f5f5;"></div>
+							</div>
+							<div class="element-text">
+								<span class="element-company">Merillat Cabinets</span>
+								<span class="element-name">White</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Hotspots -->
+		<div class="hotspot" data-collection="countertops" data-position="-455.420,-126.411,-161.721" data-rotation="-10.722,180.374,56"></div>
+		<div class="hotspot" data-collection="floors" data-position="-240.176,-302.101,317.253" data-rotation="-30.052,123.560,56"></div>
+		<div class="hotspot" data-collection="cupboards" data-position="-354.727,21.853,351.346" data-rotation="-1.053,176.107,67"></div>
+	</div>
+	<div id="preloader"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+    <script type="module" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
