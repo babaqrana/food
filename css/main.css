@@ -71,18 +71,27 @@
 }
 
 body {
-	font-family: "Open Sans", sans-serif;
+	font-family: "Lato", sans-serif;
 	margin: 0;
 	padding-top: 70px;
+	color: #5f478c;
+	background-color: #fefeff;
+	background-image: url(../images/shine-girl-with-a-jug-of-juice-and-a-pie.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: 122px 0px;
+	background-size: 270px;
 }
 
 h1 {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    font-size: 29px;
 }
 img {
     vertical-align: top;
     max-width: 100%;
     max-height: 100%;
+    /* filter: hue-rotate(336deg); */
 }
 #container {
     padding: 5%;
@@ -96,20 +105,21 @@ ul {
 	display: none;
 }
 .icon {
-    width: 66px;
+    width: 45px;
     display: inline-block;
-    height: 66px;
+    height: 45px;
     padding: 5px;
     vertical-align: top;
 }
 .food {
     margin: 0 auto;
     border-radius: 10px;
-    box-shadow: 0 10px 10px #f1f1f1;
-    padding: 20px 15px;
+    box-shadow: 0 5px 8px 2px #f7f7f7;
+    padding: 20px 5px;
     box-sizing: border-box;
     margin-bottom: 20px;
     position: relative;
+    /* border: 1px solid #f1f1f1; */
 }
 .food-side {
     display: inline-block;
@@ -119,17 +129,21 @@ ul {
 }
 .food-rating {
     margin-left: -2px;
+    line-height: 1;
 }
 .food-name {
     /* display: inline-block; */
-    font-size: 20px;
+    font-size: 19px;
     /* margin-left: 10px; */
+    line-height: 1;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 .food-edit {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    opacity: .4;
+    opacity: 0.2;
     width: 40px;
     right: 15px;
 }
@@ -139,7 +153,7 @@ ul {
     font-weight: 600;
 }
 [data-star] {
-	font-size: 30px;
+	font-size: 25px;
 	font-style: normal;
 	display: inline-block;
 	position: relative;
@@ -187,32 +201,51 @@ ul {
 
 [data-star^="5"]::after {
 	width: 100%;
+	/* color: #ffd376; */
+}
+.today.date span.week {
+    color: white;
 }
 
+.today span.day {
+    background-color: white;
+}
 .date {
-    width: 16.66666666667%;
+    width: 14.28%;
     display: inline-block;
     text-align: center;
 }
 
 .date span {
     display: block;
+    font-size: 14px;
+    font-weight: 600;
+    /* margin-left: -6px; */
+    height: 30px;
+    line-height: 30px;
+}
+span.day {
+    font-weight: bold;
+    font-size: 18px;
+    /* margin-left: -21px; */
+    border-radius: 50px;
 }
 
 #mini-calender {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    background-color: #ffffffd1;
 }
 
 
 .date-wrap {
     margin: 0 5px;
-    border-radius: 5px;
+    border-radius: 45px;	
 }
 
 .today .date-wrap {
-    color: white;
-    background-color: #004eff;
-    padding: 1px;
+    background-color: #ffaed4;
+    padding: 4px;
+	box-shadow: 0 5px 11px 0px #ffaed454
 }
 
 
