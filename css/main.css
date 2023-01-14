@@ -283,6 +283,7 @@ span.day {
 }
 .food-list.empty {
 	text-align: center;
+	font-size: 18px;
 }
 
 
