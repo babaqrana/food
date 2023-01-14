@@ -117,11 +117,12 @@ function checkString ( last ) {
 
 
 
-
+/*
 var icons = Object.values(iconNames);
 for (let i = 0; i < icons.length; i++) {
 	$('.icon-container').append('<div class="icon"><img src="'+iconUrl+icons[i]+'"></div>');
 }
+*/
 
 
 for (let i = 0; i < aryDates.length; i++) {
