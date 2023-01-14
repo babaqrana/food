@@ -38,6 +38,7 @@
     text-align: center;
     margin: 0 auto;
     top: 50%;
+    -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 .lds-ring div {
@@ -50,7 +51,7 @@
     border: 4px solid #fff;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #3ebafb transparent transparent transparent;
+    border-color: #ffaed4 transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -79,7 +80,7 @@ body {
 	background-image: url(../images/shine-girl-with-a-jug-of-juice-and-a-pie.png);
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-position: 122px 0px;
+	background-position: 122px 10px;
 	background-size: 270px;
 }
 
@@ -143,9 +144,14 @@ ul {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.2;
     width: 40px;
     right: 15px;
+    color: #5f478c;
+	text-align: center;
+}
+
+.food-edit span {
+	font-size: 35px;
 }
 .selected-date {
     font-size: 20px;
@@ -197,17 +203,44 @@ ul {
 [data-star^="4"]::after {
 	width: 80%;
 }
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,10px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0,10px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
 
 
 [data-star^="5"]::after {
 	width: 100%;
 	/* color: #ffd376; */
 }
-.today.date span.week {
+
+.today span.day { 
+	color: #5f478c;
+}
+.today.date span.week,
+.active.date span.week {
     color: white;
 }
-
-.today span.day {
+.today span.day,
+.active span.day {
     background-color: white;
 }
 .date {
@@ -232,20 +265,45 @@ span.day {
 }
 
 #mini-calender {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     background-color: #ffffffd1;
+    padding: 5px 0;
 }
+
+.food-by-date:not(.active) {
+	display:none;
+}
+.food-by-date {
+	animation: fadeInUp .2s both;
+	
+}
+
+.food-by-date.prev .food-list:not(.empty) {
+	opacity: 0.5;
+}
+.food-list.empty {
+	text-align: center;
+}
+
 
 
 .date-wrap {
     margin: 0 5px;
     border-radius: 45px;	
+	padding: 4px;
 }
 
-.today .date-wrap {
-    background-color: #ffaed4;
-    padding: 4px;
+.date.today .date-wrap {
+    background-color: #64d4ff;    
+}
+.date.active .date-wrap {
+    background-color: #ffaed4;    
 	box-shadow: 0 5px 11px 0px #ffaed454
+}
+.date-wrap span,
+.date-wrap {
+	-webkit-transition: background .3s, color .3s, box-shadow .3s;
+	transition: background .3s, color .3s, box-shadow .3s;
 }
 
 
