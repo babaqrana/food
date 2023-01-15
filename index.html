@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0" />
 
 
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -21,13 +21,36 @@
 <body>
     <div id="container">	
 		<h1>Šta za ručak?</h1>
-		<div id="mini-calender"></div>	
-		<div class="food-wrapper">
-			
+		
+		
+		
+		<div class="section active" data-cat="calender">
+			<div id="mini-calender"></div>	
+			<div class="food-wrapper"></div>
+			<div class="icon-container"></div>
 		</div>
-		<div class="icon-container"></div>
+		<div class="section" data-cat="foods">
+			<div class="food-list"></div>
+		</div>	
+		
+		
 	</div>
+	
+	
+	<div class="menu-wrapper">
+		<div class="menu-buttons">
+			<div class="menu-button active" data-cat="calender">
+			<span class="material-symbols-rounded">calendar_month</span>
+			</div>
+			<div class="menu-button" data-cat="foods">
+			<span class="material-symbols-rounded">lunch_dining</span>
+			</div>
+		</div>
+	</div>
+	
 	<div id="preloader"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+	
+	
     <script type="module" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="module" src="./js/app.js"></script>
 </body>

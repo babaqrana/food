@@ -235,12 +235,12 @@ ul {
 .today span.day { 
 	color: #5f478c;
 }
-.today.date span.week,
-.active.date span.week {
+.date.today span.week,
+.date.active span.week {
     color: white;
 }
-.today span.day,
-.active span.day {
+.date.today span.day,
+.date.active span.day {
     background-color: white;
 }
 .date {
@@ -307,4 +307,51 @@ span.day {
 	transition: background .3s, color .3s, box-shadow .3s;
 }
 
+
+.menu-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    height: 70px;
+    line-height: 80px;
+    background-color: #f9f9f9;
+    padding: 5px 0;
+}
+
+.menu-button {
+    display: inline-block;
+    width: 70px;
+    margin: 0 20px;
+    border-radius: 20px;
+    height: inherit;
+}
+
+.menu-buttons {
+    margin: 0 auto;
+    text-align: center;
+    height: inherit;
+    line-height: inherit;
+}
+
+.menu-button span {
+    font-size: 40px;
+    line-height: 70px;
+    /* border-top: 2px solid transparent; */
+}
+.menu-button.active { 
+    background-color: white;
+}
+
+.section {
+	animation: fadeInUp .2s both;
+    margin-bottom: 80px;
+}
+
+.section[data-cat="foods"] {
+    padding-top: 80px;
+}
+.section:not(.active) {
+	display: none;		
+}
 
