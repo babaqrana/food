@@ -294,6 +294,8 @@ span.day {
     overflow-y: auto;
     max-height: 450px;
     padding: 10px 0;
+    padding-right: 13px;
+    margin-right: -13px;
 }
 
 

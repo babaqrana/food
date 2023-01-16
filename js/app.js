@@ -313,7 +313,7 @@ for (let i = 0; i < aryDates.length; i++) {
 		previousDays = (i < 3)? " prev": "",
 		nextDays = (i > 3)? " next": "";
 		
-		var foodByDate = $('<div data-weekday="'+weekday+'" class="food-by-date'+today+previousDays+nextDays+'"><div class="selected-date"></div><div class="food-list empty"><img src="images/shine-young-woman-meditating-in-nature-surrounded-by-butterflies-1.png"><div class="selected">Preskocen ručak na ovaj dan.</div></div></div>').appendTo(foodWrapper),
+		var foodByDate = $('<div data-weekday="'+weekday+'" class="food-by-date'+today+previousDays+nextDays+'"><div class="selected-date"></div><div class="food-list empty"><img src="images/shine-young-woman-meditating-in-nature-surrounded-by-butterflies-1.png"><div class="selected">Preskočen ručak na ovaj dan.</div></div></div>').appendTo(foodWrapper),
 			foodList = foodByDate.find('.food-list'),
 			selDate = foodByDate.find('.selected-date');
 			
