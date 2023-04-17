@@ -20,22 +20,20 @@
 </head>
 <body>
     <div id="container">	
-		<h1>Šta za ručak?</h1>
-		
-		
+		<h1>Šta za ručak?</h1>		
 		
 		<div class="sections">
 			<div class="section active" data-cat="calender">
 				<div id="mini-calender"></div>	
-				<div class="food-wrapper"></div>
-				
+				<div class="food-wrapper"></div>				
 			</div>
 			<div class="section" data-cat="foods">
-				<div class="selected-date">Lista hrane</div>
+				<div class="food-list-title">Lista hrane</div>
+				<div id="add_new_food" class="plus-icon"><span class="material-symbols-rounded">add</span></div>
 				<div class="food-list"></div>
 			</div>
 		</div>
-		<div class="icon-container"></div>
+		
 	</div>
 	
 	
@@ -50,6 +48,31 @@
 		</div>
 	</div>
 	
+	<div id="food-editor"><div class="editor-inner">
+	<div class="input-wrap">
+		<span class="edit-title">Ime:</span>
+		<input type="text" id="food-name" name="food-name">
+	</div>
+	<div class="input-wrap">
+		<span class="edit-title">Ocena:</span>
+		<div class="food-rating" current-stars="5">
+			<i data-star="1"></i>
+			<i data-star="1"></i>
+			<i data-star="1"></i>
+			<i data-star="1"></i>
+			<i data-star="1"></i>
+		</div>
+	</div>
+	<div class="input-wrap">
+		<span class="edit-title">Ikonica:</span>
+		<div class="icon-container"></div>
+	</div>
+	
+	
+	
+	<div class="buttons-wrap"><button class="cancel">Odustani</button><button class="save">Sačuvaj</button></div>
+	
+	</div></div>
 	<div id="preloader"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 	
 	
