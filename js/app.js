@@ -127,9 +127,10 @@ function GetPantryJson() {
 	$.ajax(settings).done(function (response) {
 
 		json = response;
-		
+
 		window.json = json;
 
+		updateCalenderList();
 		updateFoodList(json);
 
 		$('#preloader').fadeOut();
@@ -141,7 +142,12 @@ function GetPantryJson() {
 	});
 }
 
-GetPantryJson();
+function updatePantryMain() {
+	$('.lds-ring.small').fadeIn(300);
+	UpdatePantryJson(json)
+	updateFoodList(json);
+}
+
 
 var allSeasons = ['Proloće', 'Leto', 'Jesen', 'Zima'];
 
@@ -171,7 +177,6 @@ var iconUrl = 'https://img.icons8.com/external-smashingstocks-flat-smashing-stoc
 	iconUrl = 'https://img.icons8.com/color/1x/',
 	iconNames = {"1":"cute-pumpkin.png","2":"kawaii-bread-1.png","3":"kawaii-coffee.png","4":"kawaii-cupcake.png","5":"kawaii-egg.png","6":"kawaii-french-fries.png","7":"kawaii-ice-cream.png","8":"kawaii-pizza.png","9":"kawaii-soda.png","10":"kawaii-steak.png","11":"kawaii-sushi.png","12":"kawaii-taco.png","13":"baguette.png","14":"bake.png","15":"bread.png","16":"bavarian-pretzel.png","17":"gingerbread-house.png","18":"merry-pie.png","19":"naan.png","20":"pretzel.png","21":"sliced-bread.png","22":"stale-bread.png","23":"blueberry.png","24":"cherry.png","25":"grapes.png","26":"raspberry.png","27":"strawberry.png","28":"banana-split.png","29":"candy.png","30":"cheesecake.png","31":"cherry-cheesecake.png","32":"chocolate-bar.png","33":"chocolate-bar-white.png","34":"cotton-candy.png","35":"dessert.png","36":"gummy-bear.png","37":"ice-cream-cone.png","38":"ice-cream-bowl.png","39":"jam.png","40":"jelly.png","41":"melting-ice-cream.png","42":"pastel-de-nata.png","43":"strawberry-cheesecake.png","44":"sweets.png","45":"toaster-pastry.png","46":"bagel.png","47":"bento.png","48":"caviar--v2.png","49":"caviar--v1.png","50":"cheese.png","51":"chocolate-spread.png","52":"dim-sum.png","53":"dolmades.png","54":"dumplings.png","55":"fondue.png","56":"food-and-wine.png","57":"greek-salad.png","58":"gyoza.png","59":"kimchi.png","60":"lasagna.png","61":"lunchbox.png","62":"noodles.png","63":"omlette.png","64":"paella.png","65":"pancake.png","66":"porridge.png","67":"rice-bowl.png","68":"salad.png","69":"sauce.png","70":"spaghetti.png","71":"spam-can.png","72":"spring-roll.png","73":"sunny-side-up-eggs.png","74":"sushi.png","75":"tapas.png","76":"tin-can.png","77":"yogurt.png","78":"coconut-milk.png","79":"coffee-capsule.png","80":"cola.png","81":"green-tea.png","82":"hemp-milk.png","83":"lemonade.png","84":"milk-bottle.png","85":"milk-carton.png","86":"oat-milk.png","87":"tea-pair.png","88":"wine-and-glass.png","89":"bao-bun.png","90":"bitten-sandwich.png","91":"cereal.png","92":"chicken-and-waffle.png","93":"french-fries.png","94":"fry.png","95":"hamburger.png","96":"hot-dog.png","97":"mcdonalds-french-fries.png","98":"nachos.png","99":"pizza.png","100":"pizza-five-eighths.png","101":"plastic-food-container.png","102":"popcorn.png","103":"potato-chips.png","104":"quesadilla.png","105":"refreshments.png","106":"sandwich.png","107":"taco.png","108":"wrap.png","109":"apple.png","110":"apples--plate.png","111":"apples_plate_1.png","112":"apricot.png","113":"avocado.png","114":"bad-banana.png","115":"bad-orange.png","116":"bad-pear.png","117":"banana.png","118":"citrus.png","119":"coconut.png","120":"cutted-melon.png","121":"date-fruit.png","122":"dragon-fruit.png","123":"durian.png","124":"fruit-bag.png","125":"goyave.png","126":"group-of-fruits.png","127":"half-orange.png","128":"jackfruit.png","129":"lime.png","130":"lychee.png","131":"mango.png","132":"mangosteen.png","133":"melon.png","134":"orange.png","135":"papaya.png","136":"peeled-banana.png","137":"pineapple.png","138":"pomegranate.png","139":"slice-of-watermelon.png","140":"soursop.png","141":"tangelo.png","142":"watermelon.png","143":"whole-apple.png","144":"whole-melon.png","145":"whole-watermelon.png","146":"almond-butter.png","147":"basil.png","148":"black-peper.png","149":"black-sesame-seeds.png","150":"bread-crumbs.png","151":"bulk-spices.png","152":"butter.png","153":"chia-seeds.png","154":"cinnamon-sticks.png","155":"cloves.png","156":"curry.png","157":"dozen-eggs.png","158":"egg-basket.png","159":"egg-carton.png","160":"eggs.png","161":"flax-seeds.png","162":"flour-in-paper-packaging.png","163":"ginger.png","164":"grains-of-rice.png","165":"granulated-garlic.png","166":"hamper.png","167":"honey.png","168":"honey-dipper-with-honey-dripping.png","169":"honey-spoon.png","170":"ingredients.png","171":"ingredients-for-cooking.png","172":"lentil.png","173":"ingredients-list.png","174":"maple-syrup.png","175":"matcha.png","176":"mint.png","177":"mozzarella.png","178":"mustard.png","179":"olive-oil.png","180":"olive-oil-bottle.png","181":"peanut-butter.png","182":"pepitas.png","183":"pistachio-sauce.png","184":"quorn.png","185":"raisins.png","186":"rice-vinegar.png","187":"rolled-oats.png","188":"salt.png","189":"salt-shaker.png","190":"sauce-bottle.png","191":"sesame.png","192":"sesame-oil.png","193":"smoked-paprika.png","194":"soy-sauce.png","195":"pepper-shaker.png","196":"spoon-of-sugar.png","197":"sugar.png","198":"sugar-cube.png","199":"sugar-cubes.png","200":"sunflower-butter.png","201":"sunflower-oil.png","202":"sweetener.png","203":"thyme.png","204":"tumeric.png","205":"vegetable-bouillion-paste.png","206":"white-sesame-seeds.png","207":"bacon.png","208":"steak-medium.png","209":"cuts-of-beef.png","210":"cuts-of-pork.png","211":"jamon.png","212":"kebab.png","213":"roast.png","214":"sausages.png","215":"souvla.png","216":"steak.png","217":"thanksgiving.png","218":"caloric-energy.png","219":"carbohydrates.png","220":"fiber.png","221":"healthy-food.png","222":"healthy-food-calories-calculator.png","223":"lipids.png","224":"natural-food.png","225":"non-vegetarian-food-symbol.png","226":"organic-food.png","227":"protein.png","228":"sodium.png","229":"starving.png","230":"vegan-food.png","231":"vegetarian-food.png","232":"vegetarian-food-symbol.png","233":"vegetarian-mark.png","234":"brazil-nut.png","235":"ceshew.png","236":"nut.png","237":"pecan.png","238":"birthday-cake.png","239":"cake.png","240":"cinnamon-roll.png","241":"cookie.png","242":"cookies.png","243":"croissant.png","244":"cupcake.png","245":"doughnut.png","246":"korean-rice-cake.png","247":"macaron.png","248":"pie.png","249":"samosa.png","250":"crab.png","251":"fish-food.png","252":"octopus.png","253":"prawn.png","254":"shellfish.png","255":"artichoke.png","256":"bok-choy.png","257":"broccoli.png","258":"brocolini1--v1.png","259":"carrot.png","260":"cauliflower.png","261":"celery.png","262":"chard.png","263":"chili-pepper.png","264":"collard-greens.png","265":"corn.png","266":"finocchio.png","267":"gailan.png","268":"group-of-vegetables.png","269":"kale.png","270":"kohlrabi.png","271":"leek.png","272":"plantain.png","273":"pumpkin.png","274":"soy.png","275":"spinach.png","276":"squash.png","277":"sweet-potato.png","278":"tomato.png","279":"tomatoes.png","280":"vegetables-bag.png","281":"white-beans.png","282":"you-choy.png","283":"zucchini.png","284":"no-milk.png","285":"edible.png","286":"inedible.png","287":"low-salt.png","288":"no-apple.png","289":"no-celery.png","290":"no-crustaceans.png","291":"no-eggs.png","292":"no-fish.png","293":"no-fructose.png","294":"no-gmo.png","295":"no-gluten.png","296":"no-lupines.png","297":"no-meat.png","298":"no-mustard.png","299":"no-nuts.png","300":"no-peanut.png","301":"no-sesame.png","302":"no-shellfish.png","303":"no-soy.png","304":"no-sugar.png","305":"no-sugar2.png","306":"asparagus.png","307":"bad_apple.png","308":"beet.png","309":"biting-a-carrot.png","310":"breakfast.png","311":"brigadeiro.png","312":"butter--churn.png","313":"cabbage.png","314":"cookbook.png","315":"cucumber.png","316":"deliver-food.png","317":"dinner.png","318":"edamame.png","319":"eggplant.png","320":"empty-jam-jar.png","321":"firm-tofu.png","322":"sack-of-flour.png","323":"food-donor.png","324":"food-receiver.png","325":"garlic.png","326":"grocery-bag.png","327":"grocery-shelf.png","328":"gum.png","329":"hazelnut.png","330":"heinz-beans.png","331":"ice-icon.png","332":"kiwi.png","333":"kombucha.png","334":"lettuce.png","335":"lunch.png","336":"mushroom.png","337":"nonya-kueh.png","338":"olive.png","339":"onion.png","340":"paprika.png","341":"peach.png","342":"peanuts.png","343":"pear.png","344":"peas.png","345":"picnic.png","346":"plum.png","347":"potato.png","348":"rack-of-lamb.png","349":"radish.png","350":"real-food-for-meals.png","351":"sabzeh.png","352":"salami.png","353":"silken-tofu.png","354":"soup-plate.png","355":"spoiled-food.png","356":"stir.png","357":"tempeh.png"},
 	json = { "foods": [] };
-	
 
 
 var foods = json["foods"];
@@ -211,8 +216,6 @@ var startDate = new Date();
 
 var aryDates = GetDates(startDate, 3);
 
-console.log( aryDates );
-
 var cal = $("#mini-calender"),
 	foodWrapper = $(".food-wrapper");
 
@@ -225,24 +228,38 @@ function checkString ( last ) {
 	var separated = [];
 
 	for (let i = 0; i < json['foods'].length; i++) {
-		if( json['foods'][i].hasOwnProperty('last') && last.indexOf( json['foods'][i]['last'] ) > -1 ) {
+		//if( json['foods'][i].hasOwnProperty('last') && last.indexOf( json['foods'][i]['last'] ) > -1 ) {
+		if( json['foods'][i]["last"] == last ) {
 			separated.push(json['foods'][i]);
 		}
 	}
 
 	return separated;
+}
+
+function getRecomendedFood() {
+
+	/*
+	for (let i = 0; i < json['foods'].length; i++) {
+		//if( json['foods'][i].hasOwnProperty('last') && last.indexOf( json['foods'][i]['last'] ) > -1 ) {
+		if( json['foods'][i]["last"] == last ) {
+			console.log( json['foods'][i]['last'] );
+			//separated.push(json['foods'][i]);
+		}
+	}
+	*/
+
+	return json['foods'].reduce(function(min, cur) {
+		return new Date(cur.last).getTime() < new Date(min.last).getTime() ? cur : min;
+	});
+
 
 }
 
-for (var id in iconNames) {
-    if (iconNames.hasOwnProperty(id)) {
-		$('.icon-container').append('<div data-icon-id="'+id+'" class="icon"><img data-src="'+iconUrl+iconNames[id]+'"></div>');
-    }
-}
 
-var foodList = $('.section[data-cat="foods"] .food-list');
+
 function getFoodHtml ( cat, icon, name, rating, arrayIndex , edit = true ) {
-	var food = '<div data-array-index="'+arrayIndex+'" class="food" data-cat="'+cat+'"><div class="icon"><img data-src="'+iconUrl+iconNames[icon]+'"></div><div class="food-side"><div class="food-name"><span>'+name+'</span></div><div class="food-rating"><i data-star="'+rating+'"></i></div>';
+	var food = '<div data-array-index="'+arrayIndex+'" class="food" data-cat="'+cat+'"><div class="icon"><img src="'+iconUrl+iconNames[icon]+'"></div><div class="food-side"><div class="food-name"><span>'+name+'</span></div><div class="food-rating"><i data-star="'+rating+'"></i></div>';
 
 	if( edit ) {
 		food += '<div class="food-edit"><span class="material-symbols-rounded">more_vert</span></div>';
@@ -253,42 +270,76 @@ function getFoodHtml ( cat, icon, name, rating, arrayIndex , edit = true ) {
 	return food;
 }
 
+function updateCalenderList() {
+	var needsUpdate = false;
+	for (let i = 0; i < aryDates.length; i++) {
+		var weekArray = aryDates[i].split('.'),
+			weekday = weekArray[0],
+			day = weekArray[1],
+			month = weekArray[2],
+			year = weekArray[3],
+			today = (weekArray[1] == startDate.getDate())? " today active": "",
+			previousDays = (i < 3)? " prev": "",
+			nextDays = (i > 3)? " next": "";
+
+			var foodByDate = $('<div data-weekday="'+weekday+'" class="food-by-date'+today+previousDays+nextDays+'"><div class="selected-date"></div><div class="food-list empty"><img src="images/shine-young-woman-meditating-in-nature-surrounded-by-butterflies-1.png"><div class="selected">Preskočen ručak na ovaj dan.</div></div></div>').appendTo(foodWrapper),
+				foodListDate = foodByDate.find('.food-list'),
+				selDate = foodByDate.find('.selected-date'),
+				dateText = weekday + ', ' + day + '. ' + month;
+
+				selDate.append(dateText);
+
+			var separated = checkString(aryDates[i]);
+
+			if( separated.length ) {
+
+				for (let r = 0; r < separated.length; r++) {
+					var food = separated[r];
+
+					index = json["foods"].indexOf(food);
+
+					foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+				}
+			} else if (nextDays || today) {
+				var newFood = getRecomendedFood(),
+					index = json["foods"].indexOf(newFood);
+
+				needsUpdate = true;
+
+				json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year
+
+				var food = json["foods"][index];
+
+
+				foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+
+
+			}
+
+		cal.append('<div data-weekday="'+weekday+'" class="date'+today+previousDays+nextDays+'"><div class="date-wrap"><span class="week">'+weekday.slice(0,3)+'</span><span class="day">'+day+'</span></div></div>');
+	}
+	if( needsUpdate ) updatePantryMain();
+}
+
 function updateFoodList(json) {
-	foodList.html("");
+
+	var foodList = $('.section[data-cat="foods"] .food-list').html("");
+
+	$('.food').each( function() {
+		var index = $(this).attr("data-array-index");
+		if( json["foods"][parseInt(index)] ) {
+			var currentFood = json["foods"][parseInt(index)];
+			
+			$(this).replaceWith( getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, index, false) );
+		}
+	});
+
 	for (let i = 0; i < json['foods'].length; i++) {
 		var	currentFood = json['foods'][i];
 		foodList.append(getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, i));
 	}
 }
 
-for (let i = 0; i < aryDates.length; i++) {
-	var weekArray = aryDates[i].split('.'),
-		weekday = weekArray[0],
-		day = weekArray[1],
-		month = weekArray[2],
-		year = weekArray[3],
-		today = (weekArray[1] == startDate.getDate())? " today active": "",
-		previousDays = (i < 3)? " prev": "",
-		nextDays = (i > 3)? " next": "";
-
-		var foodByDate = $('<div data-weekday="'+weekday+'" class="food-by-date'+today+previousDays+nextDays+'"><div class="selected-date"></div><div class="food-list empty"><img src="images/shine-young-woman-meditating-in-nature-surrounded-by-butterflies-1.png"><div class="selected">Preskočen ručak na ovaj dan.</div></div></div>').appendTo(foodWrapper),
-			foodListDate = foodByDate.find('.food-list'),
-			selDate = foodByDate.find('.selected-date');
-
-			selDate.append(weekday + ', ' + day + '. ' + month);
-
-		var separated = checkString(aryDates[i]);
-		if( separated.length ) {
-
-			for (let r = 0; r < separated.length; r++) {
-				var food = separated[r];
-
-				foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, false));
-			}
-		}
-
-	cal.append('<div data-weekday="'+weekday+'" class="date'+today+previousDays+nextDays+'"><div class="date-wrap"><span class="week">'+weekday.slice(0,3)+'</span><span class="day">'+day+'</span></div></div>');
-}
 
 /*
 $(window).on( 'load', function() {
@@ -304,8 +355,6 @@ $('body').on('click', '.date:not(.active)', function() {
 
 	$('.food-wrapper .food-by-date[data-weekday="'+weekday+'"]').addClass('active');
 
-	updateAssets('.food-wrapper img[data-src], .section[data-cat="foods"] img[data-src]:visible');
-
 // Bottom main buttons
 }).on('click', '.menu-button:not(.active)', function() {
 	var cat = $(this).data('cat');
@@ -315,10 +364,16 @@ $('body').on('click', '.date:not(.active)', function() {
 
 	$('.section[data-cat="'+cat+'"]').addClass('active');
 
-	updateAssets('.food-wrapper img[data-src], .section[data-cat="foods"] img[data-src]:visible');
-
-// Add/Edit Food 
+// Add/Edit Food
 }).on('click', '#add_new_food, .food-edit', function() {
+
+	if( $('#food-editor .icon-container img').length === 0 ) {
+		for (var id in iconNames) {
+			if (iconNames.hasOwnProperty(id)) {
+				$('#food-editor .icon-container').append('<div data-icon-id="'+id+'" class="icon"><img src="'+iconUrl+iconNames[id]+'"></div>');
+			}
+		}
+	}
 
 	let food = $(this).closest('.food'),
 		arrayIndex = food.attr('data-array-index'),
@@ -336,7 +391,7 @@ $('body').on('click', '.date:not(.active)', function() {
 		let foodName = food.find('.food-name span').text(),
 			rating = food.find('[data-star]').attr('data-star'),
 			icon = food.find('.icon img').attr('src');
-		
+
 		foodEditor.find('button.delete').show();
 		foodEditor.addClass("editing").fadeIn(300).find(".save").attr('data-array-index',arrayIndex);
 
@@ -358,8 +413,6 @@ $('body').on('click', '.date:not(.active)', function() {
 		$('#food-name').focus()
 	}
 
-	updateAssets('#food-editor img[data-src]:visible');
-
 // Save editod food
 }).on('click', '#food-editor button.save', function() {
 	var arrayIndex = $(this).attr("data-array-index"),
@@ -378,7 +431,7 @@ $('body').on('click', '.date:not(.active)', function() {
 	}
 
 	if( error ) return;
-	
+
 	if( $('#food-editor').hasClass('not-edited') ) {
 		$('#food-editor').fadeOut(300);
 		return;
@@ -389,17 +442,17 @@ $('body').on('click', '.date:not(.active)', function() {
 		if( json ) {
 			if( json["foods"] ) {
 
-				if( json["foods"][parseInt(arrayIndex)] ) {					
+				if( json["foods"][parseInt(arrayIndex)] ) {
 
-					json["foods"][parseInt(arrayIndex)] = { "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": "Doe" };
+					json["foods"][parseInt(arrayIndex)] = { "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": "Doe", "last": json["foods"][parseInt(arrayIndex)].last };
 
 				}
 
 			}
 		}
 
-	} else {	
-		
+	} else {
+
 		$('.section[data-cat="foods"] .food-list').scrollTop(0);
 
 		foods = prepend({ "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": "Doe", "last": "0" }, json["foods"] );
@@ -407,21 +460,21 @@ $('body').on('click', '.date:not(.active)', function() {
 		json["foods"] = foods;
 
 	}
-	
-	
+
+
 	updatePantryMain();
-	
+
 	$('#food-editor').fadeOut(300);
 
 // Close food editor aka X
 }).on('click', '.close-editor', function() {
-	
+
 	$('#food-editor').fadeOut();
 
 // Change food ranking
 }).on('click', '.editor-inner i', function() {
 	var numberOfStars = $(this).index();
-	
+
 	$('#food-editor.not-edited').removeClass('not-edited');
 
 	$(this).closest(".food-rating").attr("current-stars", numberOfStars+1);
@@ -429,46 +482,40 @@ $('body').on('click', '.date:not(.active)', function() {
 // Change food icon
 }).on('click', '.editor-inner .icon:not(.active)', function() {
 	$(this).closest('.icon-container').removeClass("error").find(".active").removeClass("active");
-	
+
 	$('#food-editor.not-edited').removeClass('not-edited');
-	
+
 	$(this).addClass("active");
 
 }).on( 'change', '#food-name', function() {
-	
+
 	$('#food-editor.not-edited').removeClass('not-edited');
 	$(this).removeClass('error');
-	
+
 // Delete food
 }).on('click', '#food-editor button.delete', function() {
 	$('#are-you-sure').fadeIn(300);
-	
+
 // Are you sure
 }).on('click', '#are-you-sure button.delete', function() {
-	
-	
+
+
 	let arrayID = $('#food-editor .save[data-array-index]').attr('data-array-index');
-	
-	json['foods'].splice(arrayID, 1);	
-	
-	updatePantryMain();	
-	
+
+	json['foods'].splice(arrayID, 1);
+
+	updatePantryMain();
+
 	$('#food-editor').hide();
 	$('#are-you-sure').fadeOut(300);
-	
+
 // Are you sure cancel
 }).on('click', '#are-you-sure button.save', function() {
 	$('#are-you-sure').fadeOut(300);
-	
+
 });
 
-function updatePantryMain() {	
-	$('.lds-ring.small').fadeIn(300);
-	UpdatePantryJson(json)
-	updateFoodList(json);
-	updateAssets('.food-wrapper img[data-src], .section[data-cat="foods"] img[data-src]:visible, .icon-container img[data-src]:visible');
-}
-
+// Not used
 function updateAssets(el) {
 	if( $(el).length === 0 ) return;
 	var windowHeight = $( window ).height();
@@ -490,9 +537,4 @@ function updateAssets(el) {
 
 }
 
-updateAssets('.food-wrapper img[data-src], .section[data-cat="foods"] img[data-src]:visible');
-
-$('.section[data-cat="foods"] .food-list, .icon-container').scroll(function() {
-	updateAssets('.food-wrapper img[data-src], .section[data-cat="foods"] img[data-src]:visible, .icon-container img[data-src]:visible');
-});
-
+GetPantryJson();
