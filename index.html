@@ -49,6 +49,7 @@
 	</div>
 	
 	<div id="food-editor"><div class="editor-inner">
+	<div class="close-editor"><span class="material-symbols-rounded">close</span></div>
 	<div class="input-wrap">
 		<span class="edit-title">Ime:</span>
 		<input type="text" id="food-name" name="food-name">
@@ -70,10 +71,20 @@
 	
 	
 	
-	<div class="buttons-wrap"><button class="cancel">Odustani</button><button class="save">Sačuvaj</button></div>
+	<div class="buttons-wrap"><button class="delete">Izbriši</button><button class="save">Sačuvaj</button></div>
 	
 	</div></div>
+	
+	<div class="lds-ring small"><div></div><div></div><div></div><div></div></div>
+	
 	<div id="preloader"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+	
+	
+	<div id="are-you-sure" class="">
+		<div class="sure-inner">
+			<div class="selected-date">Da li ste sigurni da zelite da izbrisete?</div><div class="buttons-wrap"><button class="save">Odustani</button><button class="delete">Izbriši</button></div>
+		</div>
+	</div>
 	
 	
     <script type="module" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

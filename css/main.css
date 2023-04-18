@@ -21,7 +21,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-
+#are-you-sure,
 #preloader {
     position: fixed;
     width: 100%;
@@ -33,6 +33,27 @@
     z-index: 200;
 }
 
+#are-you-sure {
+	display: none;
+	
+}
+
+.sure-inner {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+    text-align: center;
+}
+
+#are-you-sure .buttons-wrap {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#are-you-sure .buttons-wrap button {
+    min-width: 112px;
+}
+
 .lds-ring {
 	position: relative;
     width: 80px;
@@ -42,6 +63,19 @@
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+.lds-ring.small {
+    position: fixed;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    display: none;
+}
+
+.lds-ring.small div {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
 }
 .lds-ring div {
     box-sizing: border-box;
@@ -71,6 +105,20 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.close-editor {
+    position: fixed;
+    right: 5px;
+    top: 10px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    color: #5f478c;
+}
+.close-editor span {
+    font-size: 40px;
 }
 
 body {
@@ -203,7 +251,7 @@ ul {
     line-height: 42px;
     right: 5px;
     top: 15px;
-    background-color: #5f478c;
+    background-color: #fda0cc;
     border-radius: 100px;
     text-align: center;
     box-shadow: 0 5px 7px 0 hsl(0deg 0% 0% / 15%);
@@ -372,7 +420,7 @@ span.day {
 .section[data-cat="foods"] .food-list {
     overflow-y: auto;
     max-height: 450px;
-    padding: 10px 0;
+    padding: 10px 6px;
     padding-right: 17px;
     margin-right: -16px;
 }
@@ -486,11 +534,11 @@ button {
 }
 
 button.save {
-    background-color: #ff0078;
+	background-color: #64d4ff;
 }
 
-button.cancel {
-	background-color: #1e88e5;
+button.delete {
+    background-color: #ff0078;
 }
 
 .buttons-wrap {
@@ -517,6 +565,15 @@ input#food-name {
     margin-bottom: 5px;
     display: block;
     font-size: 20px;
+}
+
+.icon-container.error {
+    box-shadow: 0 0 0 3px red;
+}
+
+input#food-name.error {
+    border-color: red;
+    border: 3px solid red;
 }
 
 
