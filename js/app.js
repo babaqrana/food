@@ -415,12 +415,12 @@ $('body').on('click', '.date:not(.active)', function() {
 	
 	updateAssets('#food-editor img[data-src]:visible');	
 	
-}).on('click', '.editor-inner i', function() {
+}).on('click', '.editor-inner .icon i', function() {
 	var numberOfStars = $(this).index();
 	
 	$(this).closest(".food-rating").attr("current-stars", numberOfStars+1);
 	
-}).on('click', '.editor-inner .icon', function() {
+}).on('click', '.editor-inner .icon:not(.active)', function() {
 	$(this).closest('.icon-container').find(".active").removeClass("active");
 	
 	$(this).addClass("active");
