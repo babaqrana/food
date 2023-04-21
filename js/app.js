@@ -321,23 +321,57 @@ function updateCalenderList() {
 	if( needsUpdate ) updatePantryMain();
 }
 
+function updateCalenderListSingleDay(foodByDate) {
+	var needsUpdate = false;
+	for (let i = 0; i < aryDates.length; i++) {
+		var weekArray = aryDates[i].split('.'),
+			weekday = weekArray[0],
+			day = weekArray[1],
+			month = weekArray[2],
+			year = weekArray[3],
+			today = (weekArray[1] == startDate.getDate())? " today active": "",
+			nextDays = (i > 3)? " next": "",
+			foodListDate = foodByDate.find('.food-list'),
+			separated = checkString(aryDates[i]);
+
+		if ( separated.length == 0 && (nextDays || today) ) {
+			var newFood = getRecomendedFood(),
+				index = json["foods"].indexOf(newFood);
+
+			needsUpdate = true;
+
+			json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year
+
+			var food = json["foods"][index];
+
+			foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+		}
+	}
+	if( needsUpdate ) updatePantryMain();
+	return needsUpdate
+}
+
 function updateFoodList(json) {
 
 	var foodList = $('.section[data-cat="foods"] .food-list').html("");
-
-	$('.food').each( function() {
-		var index = $(this).attr("data-array-index");
-		if( json["foods"][parseInt(index)] ) {
-			var currentFood = json["foods"][parseInt(index)];
-			
-			$(this).replaceWith( getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, index, false) );
-		}
-	});
 
 	for (let i = 0; i < json['foods'].length; i++) {
 		var	currentFood = json['foods'][i];
 		foodList.append(getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, i));
 	}
+}
+
+function updateCalendarFoodList(json) {
+
+	$('.food').each( function() {
+		var index = $(this).attr("data-array-index");
+		if( json["foods"][parseInt(index)] ) {
+			var currentFood = json["foods"][parseInt(index)];
+
+			$(this).replaceWith( getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, index, false) );
+		}
+	});
+
 }
 
 
@@ -451,6 +485,8 @@ $('body').on('click', '.date:not(.active)', function() {
 			}
 		}
 
+		updateCalendarFoodList(json);
+
 	} else {
 
 		$('.section[data-cat="foods"] .food-list').scrollTop(0);
@@ -500,11 +536,34 @@ $('body').on('click', '.date:not(.active)', function() {
 }).on('click', '#are-you-sure button.delete', function() {
 
 
-	let arrayID = $('#food-editor .save[data-array-index]').attr('data-array-index');
+	let arrayID = $('#food-editor .save[data-array-index]').attr('data-array-index'),
+		food = $('.section[data-cat="calender"] .food[data-array-index="'+arrayID+'"]');
 
 	json['foods'].splice(arrayID, 1);
+	
+	var updatedJson = false;
+	
 
-	updatePantryMain();
+	if( food.length ) {
+
+		var foodByDate = food.closest('.food-by-date');
+
+		food.remove();
+
+		if( foodByDate.hasClass('today') || foodByDate.hasClass('next') ) {
+			var foodsList = foodByDate.find('.food');
+
+			if( foodsList.length == 0 ) {
+
+				updatedJson = updateCalenderListSingleDay(foodByDate);
+
+			}
+		}
+	}
+	
+	if( !updatedJson ) {
+		updatePantryMain();		
+	}
 
 	$('#food-editor').hide();
 	$('#are-you-sure').fadeOut(300);
