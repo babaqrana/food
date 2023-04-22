@@ -161,13 +161,13 @@ var getCurrentSeaoson = function () {
 		season = '';
 
     if (today >= firstSpring && today < firstSummer) {
-        return allSeasons[0][0].toLowerCase();
+        return allSeasons[0];
     } else if (today >= firstSummer && today < firstFall) {
-        return allSeasons[1][0].toLowerCase();
+        return allSeasons[1];
     } else if (today >= firstFall && today < firstWinter) {
-        return allSeasons[2][0].toLowerCase();
+        return allSeasons[2];
     } else if (today >= firstWinter || today < firstSpring) {
-        return allSeasons[3][0].toLowerCase();
+        return allSeasons[3];
     }
 }
 
@@ -248,18 +248,21 @@ function getRecomendedFood() {
 		}
 	}
 	*/
+	
+	var currentSeason = getCurrentSeaoson();
 
-	return json['foods'].reduce(function(min, cur) {
+	return json['foods'].filter(obj => {
+		return obj.cat.includes(currentSeason);
+	}).reduce(function(min, cur) {
 		return new Date(cur.last).getTime() < new Date(min.last).getTime() ? cur : min;
 	});
-
-
+	
 }
 
 
 
-function getFoodHtml ( cat, icon, name, rating, arrayIndex , edit = true ) {
-	var food = '<div data-array-index="'+arrayIndex+'" class="food" data-cat="'+cat+'"><div class="icon"><img src="'+iconUrl+iconNames[icon]+'"></div><div class="food-side"><div class="food-name"><span>'+name+'</span></div><div class="food-rating"><i data-star="'+rating+'"></i></div>';
+function getFoodHtml ( id, cat, icon, name, rating, edit = true ) {
+	var food = '<div food-id="'+id+'" class="food" data-cat="'+cat+'"><div class="icon"><img src="'+iconUrl+iconNames[icon]+'"></div><div class="food-side"><div class="food-name"><span>'+name+'</span></div><div class="food-rating"><i data-star="'+rating+'"></i></div>';
 
 	if( edit ) {
 		food += '<div class="food-edit"><span class="material-symbols-rounded">more_vert</span></div>';
@@ -296,9 +299,7 @@ function updateCalenderList() {
 				for (let r = 0; r < separated.length; r++) {
 					var food = separated[r];
 
-					index = json["foods"].indexOf(food);
-
-					foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+					foodListDate.removeClass('empty').html('').append(getFoodHtml(food.id, food.cat, food.icon, food.name, food.rating, false));
 				}
 			} else if (nextDays || today) {
 				var newFood = getRecomendedFood(),
@@ -311,7 +312,7 @@ function updateCalenderList() {
 				var food = json["foods"][index];
 
 
-				foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+				foodListDate.removeClass('empty').html('').append(getFoodHtml(food.id, food.cat, food.icon, food.name, food.rating, false));
 
 
 			}
@@ -344,7 +345,7 @@ function updateCalenderListSingleDay(foodByDate) {
 
 			var food = json["foods"][index];
 
-			foodListDate.removeClass('empty').html('').append(getFoodHtml(food.cat, food.icon, food.name, food.rating, index, false));
+			foodListDate.removeClass('empty').html('').append(getFoodHtml(food.id, food.cat, food.icon, food.name, food.rating, false));
 		}
 	}
 	if( needsUpdate ) updatePantryMain();
@@ -357,21 +358,19 @@ function updateFoodList(json) {
 
 	for (let i = 0; i < json['foods'].length; i++) {
 		var	currentFood = json['foods'][i];
-		foodList.append(getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, i));
+		foodList.append(getFoodHtml(currentFood.id, currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, true));
 	}
 }
 
-function updateCalendarFoodList(json) {
+function updateCalendarFoodList(currentFood) {
 
-	$('.food').each( function() {
-		var index = $(this).attr("data-array-index");
-		if( json["foods"][parseInt(index)] ) {
-			var currentFood = json["foods"][parseInt(index)];
+	$('.food[food-id="'+currentFood.id+'"]').each( function() {
+		var editing = ( $(this).closest('.section[data-cat="foods"]').length )? true: false;
 
-			$(this).replaceWith( getFoodHtml(currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, index, false) );
-		}
+		$(this).replaceWith( getFoodHtml(currentFood.id, currentFood.cat, currentFood.icon, currentFood.name, currentFood.rating, editing) );
+		
 	});
-
+	
 }
 
 
@@ -410,7 +409,7 @@ $('body').on('click', '.date:not(.active)', function() {
 	}
 
 	let food = $(this).closest('.food'),
-		arrayIndex = food.attr('data-array-index'),
+		foodID = food.attr('food-id'),
 		iconCont = $('.icon-container').scrollTop(0),
 		foodEditor = $('#food-editor').removeClass("editing").addClass('not-edited');
 
@@ -418,22 +417,30 @@ $('body').on('click', '.date:not(.active)', function() {
 	iconCont.find(".active").removeClass("active");
 	$('#food-name').val( "" );
 	$('.error').removeClass( "error" );
+	$('.cat-wrapper button').removeClass( "active" );
 	$('.editor-inner .food-rating').attr( 'current-stars', 5 );
 
 	if ( food.length ) {
 
 		let foodName = food.find('.food-name span').text(),
 			rating = food.find('[data-star]').attr('data-star'),
+			category = food.attr('data-cat').split(','),
 			icon = food.find('.icon img').attr('src');
 
 		foodEditor.find('button.delete').show();
-		foodEditor.addClass("editing").fadeIn(300).find(".save").attr('data-array-index',arrayIndex);
+		foodEditor.addClass("editing").fadeIn(300).find(".save").attr('food-id',foodID);
 
 		$('#food-name').val( food.find('.food-name span').text() );
 		$('.editor-inner .food-rating').attr( 'current-stars', food.find('[data-star]').attr('data-star') );
 
 		$('.icon-container .icon.active').removeClass("active");
 		var foundicon = $('.icon-container img[data-src="'+icon+'"],.icon-container img[src="'+icon+'"]').closest(".icon").addClass('active');
+		
+		for (let i = 0; i < category.length; i++) {
+			$('.cat-wrapper button[data-value="'+category[i]+'"]').addClass("active");
+		}
+		
+		
 
 		//console.log( foundicon );
 		setTimeout((function() {
@@ -442,6 +449,7 @@ $('body').on('click', '.date:not(.active)', function() {
 			iconCont.scrollTop( scroll )
 		}),300);
 	} else {
+		$('.cat-wrapper button').addClass( "active" );
 		foodEditor.find('button.delete').hide();
 		foodEditor.fadeIn(300)
 		$('#food-name').focus()
@@ -449,10 +457,13 @@ $('body').on('click', '.date:not(.active)', function() {
 
 // Save editod food
 }).on('click', '#food-editor button.save', function() {
-	var arrayIndex = $(this).attr("data-array-index"),
+	var foodID = $(this).attr("food-id"),
 		foodName = $('#food-name'),
 		iconCont = $('#food-editor .icon-container'),
-		error = false;
+		error = false,
+		cat = $(".cat-wrapper button.active").map(function() {
+			return $(this).attr("data-value");
+		}).get().join(',');
 
 	if( foodName.val().trim() == "" ) {
 		foodName.addClass("error").focus();
@@ -475,23 +486,37 @@ $('body').on('click', '.date:not(.active)', function() {
 
 		if( json ) {
 			if( json["foods"] ) {
+				
+				var currentFood = json["foods"].filter(obj => {
+						return obj.id === foodID
+					});					
+				
+				if( currentFood.length ) {
+					currentFood = currentFood[0];
 
-				if( json["foods"][parseInt(arrayIndex)] ) {
+					var index = json["foods"].indexOf(currentFood);					
 
-					json["foods"][parseInt(arrayIndex)] = { "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": "Doe", "last": json["foods"][parseInt(arrayIndex)].last };
+					if( json["foods"][index] ) {						
 
+						json["foods"][index] = { "id": currentFood.id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": currentFood.last };
+						
+						// Update edited food
+						updateCalendarFoodList(json["foods"][index]);
+
+					}
 				}
 
 			}
 		}
 
-		updateCalendarFoodList(json);
 
 	} else {
 
 		$('.section[data-cat="foods"] .food-list').scrollTop(0);
+		
+		var id = Math.random().toString(16).slice(2);
 
-		foods = prepend({ "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": "Doe", "last": "0" }, json["foods"] );
+		foods = prepend({ "id": id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": "0" }, json["foods"] );
 
 		json["foods"] = foods;
 
@@ -536,13 +561,20 @@ $('body').on('click', '.date:not(.active)', function() {
 }).on('click', '#are-you-sure button.delete', function() {
 
 
-	let arrayID = $('#food-editor .save[data-array-index]').attr('data-array-index'),
-		food = $('.section[data-cat="calender"] .food[data-array-index="'+arrayID+'"]');
-
-	json['foods'].splice(arrayID, 1);
+	let foodID = $('#food-editor .save[food-id]').attr('food-id'),
+		food = $('.section[data-cat="calender"] .food[food-id="'+foodID+'"]'),
+		currentFood = json["foods"].filter(obj => {
+			return obj.id === foodID
+		}),
+		index = ( currentFood.length )? json["foods"].indexOf(currentFood[0]): "no",
+		updatedJson = false;
+		
+	if( index == 'no' ) {
+		alert("problem with id");
+		return false;
+	}
 	
-	var updatedJson = false;
-	
+	json['foods'].splice(index, 1);
 
 	if( food.length ) {
 
@@ -551,9 +583,9 @@ $('body').on('click', '.date:not(.active)', function() {
 		food.remove();
 
 		if( foodByDate.hasClass('today') || foodByDate.hasClass('next') ) {
-			var foodsList = foodByDate.find('.food');
+			var foods = foodByDate.find('.food');
 
-			if( foodsList.length == 0 ) {
+			if( foods.length == 0 ) {
 
 				updatedJson = updateCalenderListSingleDay(foodByDate);
 
@@ -571,6 +603,11 @@ $('body').on('click', '.date:not(.active)', function() {
 // Are you sure cancel
 }).on('click', '#are-you-sure button.save', function() {
 	$('#are-you-sure').fadeOut(300);
+
+// Toggle category buttons
+}).on('click', '.cat-wrapper button', function() {
+	$(this).toggleClass("active");
+	$('#food-editor.not-edited').removeClass('not-edited');
 
 });
 
@@ -595,5 +632,6 @@ function updateAssets(el) {
 	});
 
 }
+
 
 GetPantryJson();
