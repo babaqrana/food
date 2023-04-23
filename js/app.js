@@ -111,7 +111,7 @@ window.UpdatePantryJson = function( values ) {
 			UpdatePantryJson( values );
 		}),2000);
 	});
-}
+};
 
 function GetPantryJson() {
 
@@ -144,7 +144,7 @@ function GetPantryJson() {
 
 function updatePantryMain() {
 	$('.lds-ring.small').fadeIn(300);
-	UpdatePantryJson(json)
+	UpdatePantryJson(json);
 	updateFoodList(json);
 }
 
@@ -157,8 +157,7 @@ var getCurrentSeaoson = function () {
 		firstSpring = mine[1],
 		firstSummer = mine[2],
 		firstFall = mine[3],
-		firstWinter = mine[4],
-		season = '';
+		firstWinter = mine[4];
 
     if (today >= firstSpring && today < firstSummer) {
         return allSeasons[0];
@@ -169,7 +168,7 @@ var getCurrentSeaoson = function () {
     } else if (today >= firstWinter || today < firstSpring) {
         return allSeasons[3];
     }
-}
+};
 
 var iconUrl = 'https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/2x/',
 	iconUrl = 'https://img.icons8.com/color-glass/1x/',
@@ -179,7 +178,7 @@ var iconUrl = 'https://img.icons8.com/external-smashingstocks-flat-smashing-stoc
 	json = { "foods": [] };
 
 
-var foods = json["foods"];
+var foods = json.foods;
 
 const weekdays = ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"];
 const months = ["Januar","Februar","Mart","April","Maj","Jun","Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
@@ -197,8 +196,8 @@ function GetDates(startDate, daysToAdd) {
 
 	aryDates = aryDates.reverse();
 
-    for(var i = 0; i <= daysToAdd-1; i++) {
-        var currentDate = new Date(),
+    for(let i = 0; i <= daysToAdd-1; i++) {
+        let currentDate = new Date(),
 			month = currentDate.getMonth();
         currentDate.setDate(startDate.getDate() + 1 + i);
         aryDates.push(DayAsString(currentDate.getDay()) + '.' + currentDate.getDate() + '.' + months[month] + '.' + currentDate.getFullYear());
@@ -219,16 +218,11 @@ var aryDates = GetDates(startDate, 3);
 var cal = $("#mini-calender"),
 	foodWrapper = $(".food-wrapper");
 
-var selDate = $(".selected-date");
-
-var sliced = aryDates[3].split('.');
-
 function checkString ( last ) {
 
 	var separated = [];
 
-	for (let i = 0; i < json['foods'].length; i++) {
-		//if( json['foods'][i].hasOwnProperty('last') && last.indexOf( json['foods'][i]['last'] ) > -1 ) {
+	for (let i = 0; i < json.foods.length; i++) {
 		if( json['foods'][i]["last"] == last ) {
 			separated.push(json['foods'][i]);
 		}
@@ -238,16 +232,6 @@ function checkString ( last ) {
 }
 
 function getRecomendedFood() {
-
-	/*
-	for (let i = 0; i < json['foods'].length; i++) {
-		//if( json['foods'][i].hasOwnProperty('last') && last.indexOf( json['foods'][i]['last'] ) > -1 ) {
-		if( json['foods'][i]["last"] == last ) {
-			console.log( json['foods'][i]['last'] );
-			//separated.push(json['foods'][i]);
-		}
-	}
-	*/
 	
 	var currentSeason = getCurrentSeaoson();
 
@@ -307,9 +291,9 @@ function updateCalenderList() {
 
 				needsUpdate = true;
 
-				json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year
+				json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year;
 
-				var food = json["foods"][index];
+				let food = json["foods"][index];
 
 
 				foodListDate.removeClass('empty').html('').append(getFoodHtml(food.id, food.cat, food.icon, food.name, food.rating, false));
@@ -341,7 +325,7 @@ function updateCalenderListSingleDay(foodByDate) {
 
 			needsUpdate = true;
 
-			json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year
+			json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year;
 
 			var food = json["foods"][index];
 
@@ -349,7 +333,7 @@ function updateCalenderListSingleDay(foodByDate) {
 		}
 	}
 	if( needsUpdate ) updatePantryMain();
-	return needsUpdate
+	return needsUpdate;
 }
 
 function updateFoodList(json) {
@@ -373,12 +357,6 @@ function updateCalendarFoodList(currentFood) {
 	
 }
 
-
-/*
-$(window).on( 'load', function() {
-	$('#preloader').fadeOut();
-});
-*/
 // Calendar date change
 $('body').on('click', '.date:not(.active)', function() {
 	var weekday = $(this).data('weekday');
@@ -422,9 +400,7 @@ $('body').on('click', '.date:not(.active)', function() {
 
 	if ( food.length ) {
 
-		let foodName = food.find('.food-name span').text(),
-			rating = food.find('[data-star]').attr('data-star'),
-			category = food.attr('data-cat').split(','),
+		let	category = food.attr('data-cat').split(','),
 			icon = food.find('.icon img').attr('src');
 
 		foodEditor.find('button.delete').show();
@@ -444,15 +420,14 @@ $('body').on('click', '.date:not(.active)', function() {
 
 		//console.log( foundicon );
 		setTimeout((function() {
-			iconCont.scrollTop(0)
+			iconCont.scrollTop(0);
 			var scroll = foundicon.offset().top - iconCont.offset().top - (iconCont.height()/2  - 32 );
-			iconCont.scrollTop( scroll )
+			iconCont.scrollTop( scroll );
 		}),300);
 	} else {
 		$('.cat-wrapper button').addClass( "active" );
 		foodEditor.find('button.delete').hide();
-		foodEditor.fadeIn(300)
-		$('#food-name').focus()
+		foodEditor.fadeIn(300);
 	}
 
 // Save editod food
@@ -488,7 +463,7 @@ $('body').on('click', '.date:not(.active)', function() {
 			if( json["foods"] ) {
 				
 				var currentFood = json["foods"].filter(obj => {
-						return obj.id === foodID
+						return obj.id === foodID;
 					});					
 				
 				if( currentFood.length ) {
@@ -496,9 +471,11 @@ $('body').on('click', '.date:not(.active)', function() {
 
 					var index = json["foods"].indexOf(currentFood);					
 
-					if( json["foods"][index] ) {						
+					if( json["foods"][index] ) {		
+						
+						if( !currentFood.prev ) currentFood.prev = currentFood.last;
 
-						json["foods"][index] = { "id": currentFood.id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": currentFood.last };
+						json["foods"][index] = { "id": currentFood.id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": currentFood.last, "prev": currentFood.prev };
 						
 						// Update edited food
 						updateCalendarFoodList(json["foods"][index]);
@@ -516,7 +493,7 @@ $('body').on('click', '.date:not(.active)', function() {
 		
 		var id = Math.random().toString(16).slice(2);
 
-		foods = prepend({ "id": id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": "0" }, json["foods"] );
+		foods = prepend({ "id": id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": "0", "prev": "0" }, json["foods"] );
 
 		json["foods"] = foods;
 
@@ -564,7 +541,7 @@ $('body').on('click', '.date:not(.active)', function() {
 	let foodID = $('#food-editor .save[food-id]').attr('food-id'),
 		food = $('.section[data-cat="calender"] .food[food-id="'+foodID+'"]'),
 		currentFood = json["foods"].filter(obj => {
-			return obj.id === foodID
+			return obj.id === foodID;
 		}),
 		index = ( currentFood.length )? json["foods"].indexOf(currentFood[0]): "no",
 		updatedJson = false;
