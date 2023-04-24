@@ -28,6 +28,7 @@
 				<div class="food-wrapper"></div>				
 			</div>
 			<div class="section" data-cat="foods">
+				<div class="close-editor"><span class="material-symbols-rounded">close</span></div>
 				<div class="food-list-title">Lista hrane</div>
 				<div id="add_new_food" class="plus-icon"><span class="material-symbols-rounded">add</span></div>
 				<div class="food-list"></div>
@@ -83,9 +84,14 @@
 	<div id="preloader"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 	
 	
-	<div id="are-you-sure" class="">
+	<div id="are-you-sure" class="overlay">
 		<div class="sure-inner">
-			<div class="selected-date">Da li ste sigurni da zelite da izbrisete?</div><div class="buttons-wrap"><button class="save">Odustani</button><button class="delete">Izbriši</button></div>
+			<div class="selected-date">Da li ste sigurni da želite da izbrisete?</div><div class="buttons-wrap"><button class="save">Odustani</button><button class="delete">Izbriši</button></div>
+		</div>
+	</div>
+	<div id="skip-you-sure" class="overlay">
+		<div class="sure-inner">
+			<div class="selected-date">Da li ste sigurni da želite da preskočite izabrani ručak?</div><div class="buttons-wrap"><button class="save">Odustani</button><button class="delete">Preskoči</button></div>
 		</div>
 	</div>
 	

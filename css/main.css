@@ -3,7 +3,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-#are-you-sure,
+.overlay,
 #preloader {
     position: fixed;
     width: 100%;
@@ -15,7 +15,7 @@
     z-index: 200;
 }
 
-#are-you-sure {
+.overlay {
 	display: none;
 	
 }
@@ -27,12 +27,16 @@
     text-align: center;
 }
 
-#are-you-sure .buttons-wrap {
+.sure-inner img {
+    margin-bottom: 10px;
+}
+
+.overlay .buttons-wrap {
     text-align: center;
     margin-top: 30px;
 }
 
-#are-you-sure .buttons-wrap button {
+.overlay .buttons-wrap button {
     min-width: 112px;
 }
 
@@ -89,7 +93,16 @@
   }
 }
 
+#container[current-season="Zima"] .floating .food:not([data-cat*="Zima"]),
+#container[current-season="Jesen"] .floating .food:not([data-cat*="Jesen"]),
+#container[current-season="Leto"] .floating .food:not([data-cat*="Leto"]),
+#container[current-season="Proloće"] .floating .food:not([data-cat*="Proloće"]) {
+    display: none;
+}
 
+.section:not(.floating) .close-editor {
+	display: none;
+}
 .close-editor {
     position: fixed;
     right: 5px;
@@ -104,7 +117,7 @@
 }
 
 body {
-	font-family: "Lato", sans-serif;
+	font-family: "Lato", sans-serif !important;
 	margin: 0;
 	padding-top: 70px;
 	color: #5f478c;
@@ -114,6 +127,7 @@ body {
 	background-size: contain;
 	background-position: 122px 10px;
 	background-size: 270px;
+	overflow: hidden;
 }
 
 h1 {
@@ -159,6 +173,10 @@ ul {
 .icon-container .icon.active {
     /* background-color: #ffaed4; */
     border-color: #ff0078;
+}
+
+.food-list {
+    max-height: 47vh;
 }
 
 .editor-inner {
@@ -207,6 +225,7 @@ ul {
     margin-bottom: 5px;
     font-weight: bold;
 }
+.food-skip,
 .food-edit {
     position: absolute;
     top: 50%;
@@ -217,6 +236,7 @@ ul {
 	text-align: center;
 }
 
+.food-skip span,
 .food-edit span {
 	font-size: 35px;
 }
@@ -226,6 +246,10 @@ ul {
     margin-bottom: 20px;
     font-weight: 600;
 }
+#add_new_food_cal {
+    background-color: #64d4ff;
+    top: -10px;
+}
 .plus-icon {
     position: absolute;
     width: 42px;
@@ -233,7 +257,7 @@ ul {
     line-height: 42px;
     right: 5px;
     top: 15px;
-    background-color: #fda0cc;
+    background-color: #64d4ff;
     border-radius: 100px;
     text-align: center;
     box-shadow: 0 5px 7px 0 hsl(0deg 0% 0% / 15%);
@@ -245,6 +269,28 @@ ul {
     margin-top: -1px;
 }
 
+.section[data-cat="foods"].floating {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    left: 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    bottom: 0;
+    margin: 0;
+    z-index: 99;
+    padding-top: 40px;
+    padding-left: 16px;
+}
+
+.section[data-cat="foods"].floating .food-list {
+    max-height: 90%;
+}
+.section[data-cat="foods"].floating .plus-icon,
+.section[data-cat="foods"].floating .food-edit {
+    display: none;
+}
 
 #food-editor {
 	display: none;
@@ -384,6 +430,8 @@ span.day {
 }
 .sections {
 	background-color: #ffffffd1;
+    padding: 0 10px;
+    margin: 0 -10px;
 }
 .food-by-date:not(.active) {
 	display:none;
@@ -401,8 +449,8 @@ span.day {
 	font-size: 18px;
 }
 .section[data-cat="foods"] .food-list {
-    overflow-y: auto;
-    max-height: 450px;
+	overflow-y: auto;
+    max-height: 55vh;
     padding: 10px 6px;
     padding-right: 17px;
     margin-right: -16px;
@@ -471,7 +519,7 @@ span.day {
     background-color: white;
 }
 
-.section {
+.section:not(.floating) {
 	animation: fadeInUp .2s both;
     margin-bottom: 80px;
 }
@@ -528,11 +576,14 @@ button.delete {
     text-align: right;
 }
 
-.buttons-wrap button {
+.buttons-wrap button:not(:first-child) {
     margin-left: 10px;
 }
 
-.ms-choice,
+.food-list:not(.empty) .empty-wrap {
+	display: none;
+}
+
 input#food-name {
     width: 100%;
     padding: 13px;
