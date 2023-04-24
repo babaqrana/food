@@ -149,7 +149,7 @@ function updatePantryMain() {
 }
 
 
-var allSeasons = ['Proloće', 'Leto', 'Jesen', 'Zima'];
+var allSeasons = ['Proleće', 'Leto', 'Jesen', 'Zima'];
 
 var getCurrentSeaoson = function () {
     var mine = Date.getSeasons(),

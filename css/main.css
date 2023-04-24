@@ -96,7 +96,7 @@
 #container[current-season="Zima"] .floating .food:not([data-cat*="Zima"]),
 #container[current-season="Jesen"] .floating .food:not([data-cat*="Jesen"]),
 #container[current-season="Leto"] .floating .food:not([data-cat*="Leto"]),
-#container[current-season="Proloće"] .floating .food:not([data-cat*="Proloće"]) {
+#container[current-season="Proleće"] .floating .food:not([data-cat*="Proleće"]) {
     display: none;
 }
 
