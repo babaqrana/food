@@ -391,7 +391,7 @@ $('body').on('click', '.date:not(.active)', function() {
 	if( $('#food-editor .icon-container img').length === 0 ) {
 		for (var id in iconNames) {
 			if (iconNames.hasOwnProperty(id)) {
-				$('#food-editor .icon-container').append('<div data-icon-id="'+id+'" class="icon"><img src="'+iconUrl+iconNames[id]+'"></div>');
+				$('#food-editor .icon-container').append('<div title="'+iconNames[id].replaceAll('.png', '').replaceAll('-', ' ')+'" data-icon-id="'+id+'" class="icon"><img src="'+iconUrl+iconNames[id]+'"></div>');
 			}
 		}
 	}
