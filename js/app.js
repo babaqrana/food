@@ -299,8 +299,8 @@ function updateCalenderList() {
 
 				needsUpdate = true;
 
+				json["foods"][index].prev = json["foods"][index].last;
 				json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year;
-				json["foods"][index].prev = weekday + '.' + day + '.' + month + '.' + year;
 
 				let food = json["foods"][index];
 
@@ -333,9 +333,10 @@ function updateCalenderListSingleDay(foodByDate) {
 				index = json["foods"].indexOf(newFood);
 
 			needsUpdate = true;
-
+			
+			json["foods"][index].prev = json["foods"][index].last;
 			json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year;
-			json["foods"][index].prev = weekday + '.' + day + '.' + month + '.' + year;
+			//json["foods"][index].prev = weekday + '.' + day + '.' + month + '.' + year;
 
 			var food = json["foods"][index];
 
@@ -483,7 +484,7 @@ $('body').on('click', '.date:not(.active)', function() {
 
 					if( json["foods"][index] ) {
 						
-						if( !currentFood.prev ) currentFood.prev = currentFood.last;
+						if( !currentFood.prev ) currentFood.prev = "0";
 
 						json["foods"][index] = { "id": currentFood.id, "name": foodName.val().trim(), "icon": iconCont.find('.icon.active').attr('data-icon-id'), "rating": $('.editor-inner .food-rating').attr( 'current-stars' ), "cat": cat, "last": currentFood.last, "prev": currentFood.prev };
 						
