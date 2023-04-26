@@ -128,7 +128,7 @@ function GetPantryJson() {
 
 		json = response;
 
-		window.json = json;
+		window.json = json;		
 
 		updateCalenderList();
 		updateFoodList(json);
@@ -235,11 +235,32 @@ function checkString ( last ) {
 
 function getRecomendedFood() {
 	
-	var currentSeason = getCurrentSeaoson();
+	var currentSeason = getCurrentSeaoson(),
+		filterSeasons = json['foods'].filter(obj => {
+			return obj.cat.includes(currentSeason);
+		}),
+		groupByDate = {};
+		
+	for (let i = 0; i < filterSeasons.length; i++) { 
+		let last = filterSeasons[i].last;
+		if (!(last in groupByDate)) groupByDate[last] = [];		
+		groupByDate[last].push(filterSeasons[i]);	
+	}	
+	
+	// If we have zero as date, choose random element from zero
+	if( "0" in groupByDate ) {
+		return groupByDate["0"][Math.floor(Math.random()*groupByDate["0"].length)];
+	} else {		
+		
+		var dates = Object.keys(groupByDate).sort(function(a,b){
+			return new Date(b.date) - new Date(a.date);
+		}),
+		lastestDate = dates[dates.length - 1];	
+		
+		return groupByDate[lastestDate][Math.floor(Math.random()*groupByDate[lastestDate].length)];
+	}
 
-	return json['foods'].filter(obj => {
-		return obj.cat.includes(currentSeason);
-	}).reduce(function(min, cur) {
+	return filterSeasons.reduce(function(min, cur) {
 		return new Date(cur.last).getTime() < new Date(min.last).getTime() ? cur : min;
 	});
 	
