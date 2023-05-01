@@ -1,3 +1,26 @@
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
 Date.fromJulian = function (j) {
     j = (+j) + (30.0 / (24 * 60 * 60));
     var A = Date.julianArray(j, true);
@@ -102,7 +125,6 @@ window.UpdatePantryJson = function( values ) {
 	};
 
 	$.ajax(settings).done(function(response) {
-		//GetPantryJson();
 		$('.lds-ring.small').fadeOut(300);
 		console.log( 'Pantry UPDATED!' );
 	})
@@ -113,7 +135,16 @@ window.UpdatePantryJson = function( values ) {
 	});
 };
 
-function GetPantryJson() {
+function GetPantryJson(username) {
+	
+	if( username == '1' ) {
+		
+	} else if ( username == '2' ) {
+		
+	} else {
+		alert('User not found!')
+		return;
+	}
 
 	var settings = {
 	  "url": 'https://getpantry.cloud/apiv1/pantry/1f3a2c9e-cbc5-4c5b-b93f-5d0f48a83ce8/basket/food',
@@ -137,7 +168,7 @@ function GetPantryJson() {
 	})
 	.fail(function() {
 		setTimeout((function() {
-			GetPantryJson();
+			GetPantryJson(username);
 		}),2000);
 	});
 }
@@ -189,9 +220,10 @@ function GetDates(startDate, daysToAdd) {
     var aryDates = [];
 
 	 for(var i = 0; i <= daysToAdd; i++) {
-        var currentDate = new Date(),
-			month = currentDate.getMonth();
-        currentDate.setDate(startDate.getDate() - i);
+        var currentDate = new Date();
+		
+		currentDate.setDate(startDate.getDate() - i);		
+		var month = currentDate.getMonth();		
 
         aryDates.push(DayAsString(currentDate.getDay()) + '.' + currentDate.getDate() + '.' + months[month] + '.' + currentDate.getFullYear());
     }
@@ -223,12 +255,15 @@ var cal = $("#mini-calender"),
 function checkString ( last ) {
 
 	var separated = [];
+	
 
 	for (let i = 0; i < json.foods.length; i++) {
 		if( json['foods'][i]["last"] == last ) {
 			separated.push(json['foods'][i]);
 		}
 	}
+	
+	
 
 	return separated;
 }
@@ -304,6 +339,7 @@ function updateCalenderList() {
 				selDate.append(dateText);
 
 			var separated = checkString(aryDates[i]);
+			
 
 			if( separated.length ) {
 				
@@ -745,5 +781,16 @@ function updateAssets(el) {
 
 }
 
+var user = getCookie('user');
 
-GetPantryJson();
+GetPantryJson('1');
+/*
+if( !user ) {
+	alert('no user');
+} else {
+	alert(user);
+}
+*/
+
+
+
