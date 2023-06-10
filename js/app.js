@@ -280,17 +280,35 @@ function getRecomendedFood() {
 		let last = filterSeasons[i].last;
 		if (!(last in groupByDate)) groupByDate[last] = [];		
 		groupByDate[last].push(filterSeasons[i]);	
-	}	
+	}
+	
+	/*
+	for (let i = 0; i < aryDates.length; i++) {
+		var separated = checkString(aryDates[i]);
+		console.log( separated );
+	}
+	*/
 	
 	// If we have zero as date, choose random element from zero
 	if( "0" in groupByDate ) {
 		return groupByDate["0"][Math.floor(Math.random()*groupByDate["0"].length)];
 	} else {		
-		
-		var dates = Object.keys(groupByDate).sort(function(a,b){
-			return new Date(b.date) - new Date(a.date);
+		var dates = Object.keys(groupByDate).sort(function(a,b){			
+			var splitA = a.split('.'),
+				splitB = b.split('.'),
+				formatA = (months.indexOf(splitA[2]) + 1) + '.' + splitA[1]+ '.' + splitA[3],
+				formatB = (months.indexOf(splitB[2]) + 1) + '.' + splitB[1]+ '.' + splitB[3];
+				
+			return new Date(formatB) - new Date(formatA);
 		}),
-		lastestDate = dates[dates.length - 1];	
+		lastestDate = dates[dates.length - 1];
+		
+		/*
+		console.log( dates );
+		console.log( lastestDate );
+		console.log( groupByDate );
+		*/
+		
 		
 		return groupByDate[lastestDate][Math.floor(Math.random()*groupByDate[lastestDate].length)];
 	}
@@ -338,8 +356,7 @@ function updateCalenderList() {
 
 				selDate.append(dateText);
 
-			var separated = checkString(aryDates[i]);
-			
+			var separated = checkString(aryDates[i]);			
 
 			if( separated.length ) {
 				
@@ -350,11 +367,12 @@ function updateCalenderList() {
 
 					foodListDate.append(getFoodHtml(food.id, food.cat, food.icon, food.name, food.rating, skipButton));
 				}
-			} else if (nextDays /*|| today*/) {
+			} else if (nextDays /*|| today*/) {				
+				
 				var newFood = getRecomendedFood(),
-					index = json["foods"].indexOf(newFood);
+					index = json["foods"].indexOf(newFood);					
 
-				needsUpdate = true;
+				needsUpdate = true;				
 
 				json["foods"][index].prev = json["foods"][index].last;
 				json["foods"][index].last = weekday + '.' + day + '.' + month + '.' + year;
@@ -482,11 +500,9 @@ $('body').on('click', '.date:not(.active)', function() {
 		
 		for (let i = 0; i < category.length; i++) {
 			$('.cat-wrapper button[data-value="'+category[i]+'"]').addClass("active");
-		}
-		
+		}	
 		
 
-		//console.log( foundicon );
 		setTimeout((function() {
 			iconCont.scrollTop(0);
 			var scroll = foundicon.offset().top - iconCont.offset().top - (iconCont.height()/2  - 32 );
