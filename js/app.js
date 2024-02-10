@@ -139,15 +139,35 @@ window.UpdatePantryJson = function (values) {
 		"data": JSON.stringify(values),
 	};
 
+	$.ajax(settings);
+};
+
+window.UpdateJsonStorageJson = function (values) {
+	if (!values) return;
+
+	var settings = {
+		"url": "https://api.jsonstorage.net/v1/json/52f373cc-963c-4912-9c68-1be59e942874/76c6e61e-ae17-4207-b8d8-bb3d427effd4?apiKey=5826e7f1-b16e-4bac-bc23-05d160082657",
+		"type": "PUT",
+		"timeout": 0,
+		"contentType": "application/json; charset=utf-8",
+		"dataType": "json",
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"data": JSON.stringify(values),
+	};
+
 	$.ajax(settings).done(function (response) {
+
 		$('.lds-ring.small').fadeOut(300);
 		console.log('Pantry UPDATED!');
-	})
-		.fail(function () {
-			setTimeout((function () {
-				UpdatePantryJson(values);
-			}), 2000);
-		});
+
+	}).fail(function () {
+		setTimeout((function () {
+			UpdateJsonStorageJson(values);
+		}), 2000);
+	});
+	UpdatePantryJson();
 };
 
 function GetPantryJson(username) {
@@ -162,7 +182,8 @@ function GetPantryJson(username) {
 	}
 
 	var settings = {
-		"url": 'https://getpantry.cloud/apiv1/pantry/1f3a2c9e-cbc5-4c5b-b93f-5d0f48a83ce8/basket/food',
+		//"url": 'https://getpantry.cloud/apiv1/pantry/1f3a2c9e-cbc5-4c5b-b93f-5d0f48a83ce8/basket/food',
+		"url": 'https://api.jsonstorage.net/v1/json/52f373cc-963c-4912-9c68-1be59e942874/76c6e61e-ae17-4207-b8d8-bb3d427effd4',
 		"method": "GET",
 		"timeout": 0,
 		"headers": {
@@ -190,7 +211,7 @@ function GetPantryJson(username) {
 
 function updatePantryMain() {
 	$('.lds-ring.small').fadeIn(300);
-	UpdatePantryJson(json);
+	UpdateJsonStorageJson(json);
 	updateFoodList(json);
 }
 
